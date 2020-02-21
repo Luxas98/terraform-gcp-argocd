@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform
+  # Source of the application manifests
+  source:
+    repoURL: "git@gitlab.com:healthplusai/gitops/platform.git"
+    path: products/redis/base
+    # Branch name
+    targetRevision: argocd
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  # Sync policy
+  syncPolicy:
+    automated:
+      prune: true
+  # Ignore differences at the specified json pointers
+  ignoreDifferences:
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      jsonPointers:
+        - /spec
+    # - group: apps
+    #   kind: Deployment
+    #   jsonPointers:
+    #     - /spec/replicas

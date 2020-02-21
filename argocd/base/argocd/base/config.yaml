@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  repositories: |
+    # git@gitlab.com:path/to/your/file.git
+    # FIX ME
+    - url: <git-repo-you-want-to-track-changes-on>
+      # insecureIgnoreHostKey: true
+      sshPrivateKeySecret:
+        name: gitlab-ssh-secret
+        key: sshPrivateKey
+  # https://argoproj.github.io/argo-cd/operator-manual/sso/#existing-oidc-provider
+  # FIX ME
+  url: <argocd.url>
+  # dex + google example
+  # https://github.com/dexidp/dex/blob/master/Documentation/connectors/oidc.md
+  dex.config: |
+    connectors:
+      - type: oidc
+        id: google
+        name: Google
+        config:
+          issuer: https://accounts.google.com
+          # FIX ME
+          clientID: <your-client-id>.apps.googleusercontent.com # argocd-client-id
+          clientSecret: $dex.google.clientSecret # argocd-secret key
+          orgs:
+          - name: MyOrganization
+            teams:
+            - admin
+  resource.customizations: |
+    certmanager.k8s.io/Certificate:
+      health.lua: |
+        hs = {}
+        if obj.status ~= nil then
+          if obj.status.conditions ~= nil then
+            for i, condition in ipairs(obj.status.conditions) do
+              if condition.type == "Ready" and condition.status == "False" then
+                hs.status = "Degraded"
+                hs.message = condition.message
+                return hs
+              end
+              if condition.type == "Ready" and condition.status == "True" then
+                hs.status = "Healthy"
+                hs.message = condition.message
+                return hs
+              end
+            end
+          end
+        end
+
+        hs.status = "Progressing"
+        hs.message = "Waiting for certificate"
+        return hs

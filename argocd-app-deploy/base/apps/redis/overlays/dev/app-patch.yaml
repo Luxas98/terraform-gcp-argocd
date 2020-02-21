@@ -1,0 +1,12 @@
+- op: replace
+  path: /spec/source/path
+  value: products/redis/overlays/dev-lukas
+- op: replace
+  path: /spec/source/targetRevision
+  value: argocd
+- op: replace
+  path: /spec/destination/server
+  value: "https://35.204.41.74"
+- op: replace
+  path: /spec/project
+  value: dev-lukas-platform

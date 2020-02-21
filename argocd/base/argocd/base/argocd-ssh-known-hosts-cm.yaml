@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-ssh-known-hosts-cm
+data:
+  ssh_known_hosts: |
+    <known-ssh-host>

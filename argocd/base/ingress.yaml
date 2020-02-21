@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: argocd-ingress
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.global-static-ip-name: "argocd-ip"
+    networking.gke.io/managed-certificates: "argocd-cert"
+    ingress.kubernetes.io/proxy-body-size: "100m"
+    beta.cloud.google.com/backend-config: '{"ports": {"80": "iap-config"}, "default": "config-default"}'
+  labels:
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: server
+spec:
+  backend:
+    serviceName: argocd
+    servicePort: 80
+  rules:
+  # FIX ME
+  - host: <argocd.url>
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: argocd
+          servicePort: 80
