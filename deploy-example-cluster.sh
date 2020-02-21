@@ -6,7 +6,10 @@ PROJECT_ID=${PROJECT_ID:=$2}
 REGION=${REGION:=europe-west4}
 ZONE=${ZONE:=a}
 
+cd gcp-cluster-example
 # Create or select terraform workspace
 terraform init
 terraform workspace new ${CLIENT_NAME} || terraform workspace select ${CLIENT_NAME}
 terraform apply -var="project_id=${PROJECT_ID}" -var="region=${REGION}" -var="zone=${ZONE}"
+
+cd ..

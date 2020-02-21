@@ -6,10 +6,6 @@ output "primary_cluster_endpoint" {
  value = "${google_container_cluster.primary.endpoint}"
 }
 
-output "ml_pool_id" {
-  value = "${google_container_node_pool.ml-pool.id}"
-}
-
 output "service_pool_id" {
   value = "${google_container_node_pool.service-pool.id}"
 }
@@ -22,10 +18,6 @@ output "cluster_admin_access_token" {
 output "cluster_admin_ca_cert" {
   value = "${data.kubernetes_secret.cluster-admin-token.data["ca.crt"]}"
   sensitive = true
-}
-
-output "metrics_dataset_id" {
-  value = google_bigquery_dataset.cluster-usage-dataset.dataset_id
 }
 
 output "primary_cluster_ca" {

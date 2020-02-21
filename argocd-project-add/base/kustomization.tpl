@@ -1,15 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namePrefix: redis-
-
 bases:
-  - ../../base
+  - project/overlays/${overlay}
+
 
 patchesJson6902:
   - target:
       group: argoproj.io
       version: v1alpha1
-      kind: Application
-      name: app
-    path: app-patch.yaml
+      kind: AppProject
+      # FIX ME
+      name: project
+    path: ./server-patch.yaml

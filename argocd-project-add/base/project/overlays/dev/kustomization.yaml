@@ -12,5 +12,5 @@ patchesJson6902:
       version: v1alpha1
       kind: AppProject
       # FIX ME
-      name: <project-name>
+      name: project
     path: ./server-patch.yaml

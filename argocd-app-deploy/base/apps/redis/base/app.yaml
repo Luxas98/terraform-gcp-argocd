@@ -5,13 +5,14 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: platform
+  project: project
   # Source of the application manifests
   source:
-    repoURL: "git@gitlab.com:healthplusai/gitops/platform.git"
-    path: products/redis/base
+    # FIX ME
+    repoURL: "git@github.com:Luxas98/terraform-gcp-argocd.git"
+    path: argcd-apps/redis/base
     # Branch name
-    targetRevision: argocd
+    targetRevision: master
   # Destination cluster and namespace to deploy the application
   destination:
     server: "https://kubernetes.default.svc"
@@ -26,7 +27,3 @@ spec:
       kind: CustomResourceDefinition
       jsonPointers:
         - /spec
-    # - group: apps
-    #   kind: Deployment
-    #   jsonPointers:
-    #     - /spec/replicas

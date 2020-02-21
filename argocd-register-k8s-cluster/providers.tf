@@ -23,5 +23,5 @@ provider "kubernetes" {
 //  cluster_ca_certificate = var.target_cluster_ca
   token = var.target_sa_token
   load_config_file = false
-  insecure = true # TODO: fix this, we need certs for nginx - x509: cannot validate certificate for 34.90.145.245 because it doesn't contain any IP SANs
+  insecure = true # TODO: fix this, we need certs for nginx - x509: cannot validate certificate for because it doesn't contain any IP SANs
 }

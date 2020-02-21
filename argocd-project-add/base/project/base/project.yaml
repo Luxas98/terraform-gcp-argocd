@@ -1,53 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: platform
+  # FIX ME
+  name: project
 spec:
   description: ""
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-    - "git@gitlab.com:healthplusai/gitops/platform.git"
+    # FIX ME
+    - "<argocd-source-repo>"
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
     - namespace: default
-      server: "https://kubernetes.default.svc"
-    - namespace: nuclio
-      server: "https://kubernetes.default.svc"
-    - namespace: metacontroller
-      server: "https://kubernetes.default.svc"
-    - namespace: cert-manager
-      server: "https://kubernetes.default.svc"
-    - namespace: nginx-controller
-      server: "https://kubernetes.default.svc"
-    - namespace: ambassador
-      server: "https://kubernetes.default.svc"
-    - namespace: custom-metrics
-      server: "https://kubernetes.default.svc"
-    - namespace: redis
-      server: "https://kubernetes.default.svc"
-    - namespace: api-gateway
-      server: "https://kubernetes.default.svc"
-    - namespace: data-api
-      server: "https://kubernetes.default.svc"
-    - namespace: data-services
-      server: "https://kubernetes.default.svc"
-    - namespace: image-vault
-      server: "https://kubernetes.default.svc"
-    - namespace: model-serving
-      server: "https://kubernetes.default.svc"
-    - namespace: fhir-api
-      server: "https://kubernetes.default.svc"
-    - namespace: fhir-services
-      server: "https://kubernetes.default.svc"
-    - namespace: fhir-vault
-      server: "https://kubernetes.default.svc"
-    - namespace: minio
-      server: "https://kubernetes.default.svc"
-    - namespace: pulsar
-      server: "https://kubernetes.default.svc"
-    - namespace: redis
-      server: "https://kubernetes.default.svc"
-    - namespace: node-fhir-api
       server: "https://kubernetes.default.svc"
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:

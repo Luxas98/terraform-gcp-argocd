@@ -1,12 +1,12 @@
 - op: replace
   path: /spec/source/path
-  value: products/redis/overlays/dev-lukas
+  value: argocd-apps/redis/overlays/dev
 - op: replace
   path: /spec/source/targetRevision
-  value: argocd
+  value: master
 - op: replace
   path: /spec/destination/server
-  value: "https://35.204.41.74"
+  value: "https:/<cluster-ip>"
 - op: replace
   path: /spec/project
-  value: dev-lukas-platform
+  value: project

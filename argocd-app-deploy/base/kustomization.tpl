@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
-  - git@gitlab.com:healthplusai/gitops/platform//argocd/apps/${app}/overlays/${overlay}?ref=argocd
+  - apps/${app}/overlays/${overlay}
 
 patchesJson6902:
   - target:
